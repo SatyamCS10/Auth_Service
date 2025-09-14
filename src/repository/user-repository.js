@@ -17,6 +17,28 @@ class UserRepository {
             throw error;
         }
     }
+
+    // for login purpose
+    async getUserById(userId) {
+        try {
+            const user = await User.findByPk(userId, 
+                { attributes: ['id', 'email'] }
+            );
+            return user;
+        } catch (error) {
+            throw error;
+        }                   
+    }
+
+    async getUserByEmail(userEmail) {
+        try {
+            const user  = await User.findOne({ where: { email: userEmail } });
+            return user;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = new UserRepository();

@@ -43,6 +43,27 @@ class UserController {
         }       
 
     }
-}  
+
+    async signIn(req, res) {
+        try {
+            const { email, password } = req.body;
+            const token = await userService.signIn(email, password);
+            return res.status(200).json({
+                message: 'Sign in successful',
+                data: { token },
+                success: true,
+                err: {}
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({
+                message: 'Something went wrong',
+                data: {},
+                success: false,
+                err: error
+            });
+        }
+    }
+}
 
 module.exports = new UserController();
