@@ -1,10 +1,18 @@
 const express = require('express');
 const router = express.Router();    
 const UserController = require('../../controllers/user-controllers');
+const AuthRequestValidators = require('../../middlewares/auth-request-validators');
 
-router.post('/signup', UserController.createUser);
-router.post('/login', UserController.signIn);
+console.log('UserController.createUser:', typeof UserController.createUser);
+console.log('UserController.signIn:', typeof UserController.signIn);
+console.log('AuthRequestValidators.validateUserAuth:', typeof AuthRequestValidators.validateUserAuth);
 
-router.delete('/delete/:id', UserController.deleteUser);
+router.post('/signup', 
+    AuthRequestValidators.validateUserAuth,
+    UserController.createUser);
+
+router.post('/login',
+    AuthRequestValidators.validateUserAuth,
+    UserController.signIn);
 
 module.exports = router;
