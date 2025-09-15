@@ -61,12 +61,29 @@ createdAt / updatedAt (timestamps)
 📂 Project Structure
 AUTH_SERVICE/
 │── config/            # Sequelize DB config
+│── controllers/       # Request handling logic (maps routes → services)
+│── middleware/        # Middleware (auth checks, logging, validation, etc.)
 │── migrations/        # Database migration files
 │── models/            # Sequelize models
-│── seeders/           # Seeder files (if needed)
+│── repository/        # DB access layer (encapsulates queries)
+│── routes/            # Route definitions (maps URL → controller)
+│── seeders/           # Seeder files (optional sample data)
+│── services/          # Business logic (called from controllers)
 │── index.js           # Express server entry point
 │── .env               # Environment variables
 │── package.json
+
+📖 Layer Explanation
+
+controllers/ → Handle incoming requests and responses. Calls services.
+
+services/ → Contain business logic (e.g., hashing passwords, generating tokens).
+
+repository/ → Database interaction layer using Sequelize queries.
+
+routes/ → Define REST API endpoints (e.g., /auth/login, /auth/register).
+
+middleware/ → Authentication (JWT), validation, request logging, etc.
 
 ⚡ Run the Service
 npm run dev
@@ -74,10 +91,10 @@ npm run dev
 
 (by default using nodemon)
 
-👉 Next steps could include:
+👉 Next Steps:
 
-Adding JWT authentication
+Add JWT authentication with jsonwebtoken
 
-Hashing passwords with bcrypt
+Use bcrypt for password hashing
 
-Writing routes for signup/login
+Write controllers + services + repository for signup & login
